@@ -12,9 +12,10 @@ public class App
     {
         Scanner scanner = new Scanner(System.in);
         LibraryService libraryService = new LibraryService();
-        UserInterface.home(scanner,libraryService);
+        UserInterface.home(scanner, libraryService);
         scanner.close();
         System.out.println("Program Closed!");
+
 
     }
 

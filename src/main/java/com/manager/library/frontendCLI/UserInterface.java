@@ -4,13 +4,11 @@ import com.manager.library.entities.Student;
 import com.manager.library.service.LibraryService;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class UserInterface {
-
-
-
         public static void home(Scanner input,LibraryService libraryService) {
             boolean exit = false;
             System.out.println("=====================================");
@@ -42,89 +40,116 @@ public class UserInterface {
         }
         public static void studentLogin(Scanner input,LibraryService libraryService) {
             System.out.println("Logging in as Student");
-            System.out.print("Enter Student Id :  ");
-            int stdID = input.nextInt();
-            input.nextLine();
+            String prompt = "Enter Student ID : ";
+            int stdID = getSafeInteger(input,prompt);
             Student student = libraryService.getStudentById(stdID);
-            if(student == null) {
-                System.out.println("Student not found !");
-                System.out.println("Incorrect Student Id !");
-            }
-            System.out.println("*********Logged In Successfully*********");
-            System.out.println("Welcome : "+ student.getName() );
-            boolean isLoggedIn = true;
-            while(isLoggedIn) {
-                System.out.println("Press A : To See All Books");
-                System.out.println("Press B : To Borrow Books");
-                System.out.println("Press R : To Return Books");
-                System.out.println("Press M : To See Your Books");
-                System.out.println("Press S : Search Book By Id");
-                System.out.println("Press O : Log Out");
-                System.out.print("Enter your choice : ");
-                String resp = input.nextLine().toUpperCase(Locale.ENGLISH).trim();
-                switch (resp) {
-                    case "A":
-                        libraryService.getBooklist();
-                        break;
-                    case "B":
-                        System.out.print("Enter Book Id : ");
-                        int bookID = input.nextInt();
-                        input.nextLine();
-                        libraryService.borrowBook(bookID, stdID);
-                        break;
-                    case "R":
-                        System.out.print("Enter Book Id : ");
-                        int bookID2 = input.nextInt();
-                        input.nextLine();
-                        libraryService.returnBook(bookID2, stdID);
-                        break;
-                    case "S":
-                        System.out.print("Enter Book Id : ");
-                        int bookID3 = input.nextInt();
-                        input.nextLine();
-                        libraryService.getBookById(bookID3);
-                        break;
-                    case "M":
-                       libraryService.getMyBookList(stdID);
-                       break;
-                    case "O":
-                        isLoggedIn = false;
-                        System.out.println("Logged Out Successfully");
-                        break;
-                    default:
-                        System.out.println("Invalid Input");
-                }
-            }
-
+              if (student == null) {
+                  System.out.println("Student not found !");
+                  System.out.println("Try Again!");
+              } else {
+                  System.out.println("*********Logged In Successfully*********");
+                  System.out.println("Welcome : " + student.getName());
+                  boolean isLoggedIn = true;
+                  while (isLoggedIn) {
+                      System.out.println("Press A : To See All Books");
+                      System.out.println("Press B : To Borrow Books");
+                      System.out.println("Press R : To Return Books");
+                      System.out.println("Press M : To See Your Books");
+                      System.out.println("Press S : Search Book By Id");
+                      System.out.println("Press O : Log Out");
+                      System.out.print("Enter your choice : ");
+                      String resp = input.nextLine().toUpperCase(Locale.ENGLISH).trim();
+                      switch (resp) {
+                          case "A":
+                              libraryService.getBooklist();
+                              break;
+                          case "B":
+                              String borrow_prompt = "Enter Book Id : ";
+                              int bookID_b = getSafeInteger(input,borrow_prompt);
+                              libraryService.borrowBook(bookID_b, stdID);
+                              break;
+                          case "R":
+                              String return_prompt = "Enter Book Id : ";
+                              int bookID_r = getSafeInteger(input,return_prompt);
+                              libraryService.returnBook(bookID_r, stdID);
+                              break;
+                          case "S":
+                              String search_prompt = "Enter Book Id : ";
+                              int bookID_s = getSafeInteger(input,search_prompt);
+                              libraryService.getBookById(bookID_s);
+                              break;
+                          case "M":
+                              libraryService.getMyBookList(stdID);
+                              break;
+                          case "O":
+                              isLoggedIn = false;
+                              System.out.println("Logged Out Successfully");
+                              break;
+                          default:
+                              System.out.println("Invalid Input");
+                      }
+                  }
+              }
         }
         public static void studentRegistration(Scanner input,LibraryService libraryService) {
-            System.out.println("******REGISTERING A STUDENT*********");
-            System.out.print("Enter Your  Full Name : ");
-            String name = input.nextLine();
-            System.out.println("Enter Your Email : ");
-            String email = input.nextLine();
-            System.out.println("Enter Your Phone : ");
-            String phone = input.nextLine();
-            Student student = new Student();
-            student.setName(name);
-            student.setEmail(email);
-            student.setObtainedBook(0);
-            student.setPhone(phone);
+        System.out.println("******REGISTERING A STUDENT*********");
+        String name = getSafeString(input, "Enter Your Full Name : ");
+        String email = getUniqueEmail(input, libraryService,"Enter Email Address : ");
+        String phone = getSafeString(input, "Enter Phone Number : ");
+
+        Student student = new Student();
+        student.setName(name);
+        student.setEmail(email);
+        student.setObtainedBook(0);
+        student.setPhone(phone);
+
+        try {
             libraryService.addNewStudent(student);
-            if(libraryService.getStudentById(student.getId()) != null) {
-                System.out.println("Student Registered Successfully!");
-                System.out.println("******Your Details******");
-                System.out.println(student);
-                System.out.println("************************");
-                System.out.println("Keep Your Student id for future login!");
-                return;
-            }
-            System.out.println("Something went wrong!");
+            System.out.println("Student Registered Successfully!");
+            System.out.println("******Your Details******");
+            System.out.println(student);
+            System.out.println("************************");
+            System.out.println("Keep Your Student id for future login!");
+        } catch (Exception e) {
+            System.out.println("Something went wrong: " + e.getMessage());
             System.out.println("Try Again!");
-
-
-
         }
-
-
+    }
+        public static int getSafeInteger(Scanner input , String message) {
+            while(true) {
+                System.out.print(message);
+                try {
+                   int value = input.nextInt();
+                   input.nextLine();
+                   return value;
+                }catch (InputMismatchException e) {
+                    System.out.println("Input Mismatch!");
+                    System.out.println("try again!");
+                    input.nextLine();
+                }
+            }
+        }
+        public static String getSafeString(Scanner input , String message) {
+            String value = "";
+            while (value.trim().isEmpty()) {
+                System.out.print(message);
+                value = input.nextLine();
+                if (value.trim().isEmpty()) {
+                    System.out.println("This field cannot be empty!");
+                    System.out.println("try again!");
+                }
+            }
+            return value;
+        }
+        public static String getUniqueEmail(Scanner input,LibraryService service,String message){
+            while(true){
+                String email = getSafeString(input, message);
+                if(service.emailExists(email)){
+                    System.out.println("Email Already in use");
+                    System.out.println("Provide different email");
+                }else{
+                    return email;
+                }
+            }
+        }
 }

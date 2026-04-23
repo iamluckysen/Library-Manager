@@ -28,8 +28,9 @@ public class StudentDao {
             query.setParameter("studentId", studentId);
             return query.uniqueResult();
         } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
     //CREATE STUDENT OR ADD NEW STUDENT
@@ -72,4 +73,13 @@ public class StudentDao {
     }
 
 
+    public boolean duplicateEmail(String email) {
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        String hql = "from students where email = :email";
+        Query<Student> query = session.createQuery(hql,Student.class);
+        query.setParameter("email", email);
+        Student student = query.uniqueResult();
+        return student != null;
+        }
+    }
 }

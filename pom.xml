@@ -5,8 +5,7 @@
   <groupId>com.manager.library</groupId>
   <artifactId>LibraryManager</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
+  <packaging>war</packaging>
   <name>LibraryManager</name>
   <url>http://maven.apache.org</url>
 
@@ -20,6 +19,18 @@
     <groupId>com.mysql</groupId>
     <artifactId>mysql-connector-j</artifactId>
     <version>8.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet.jsp</groupId>
+      <artifactId>jakarta.servlet.jsp-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>

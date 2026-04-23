@@ -182,5 +182,10 @@ public class LibraryService {
 
     }
 
+    public boolean emailExists(String email){
+        return  studentDao.duplicateEmail(email);
+    }
+
+
 
 }
