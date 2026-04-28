@@ -61,7 +61,7 @@ public class StudentDao {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
             Student student = getStudentById(studentId);
-            if(student != null){
+            if(student == null){
                 System.out.println("no student found for the id " + studentId);
                 session.getTransaction().rollback();
                 return;

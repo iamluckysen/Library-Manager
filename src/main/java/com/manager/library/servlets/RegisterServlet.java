@@ -1,8 +1,7 @@
 package com.manager.library.servlets;
 
 import com.manager.library.entities.Student;
-import com.manager.library.service.LibraryService;
-import jakarta.servlet.ServletException;
+import com.manager.library.service.LibrayServiceWeb;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +22,7 @@ public class RegisterServlet extends HttpServlet {
         student.setPhone(phone);
         student.setEmail(email);
         student.setName(name);
-        LibraryService service = new LibraryService();
+        LibrayServiceWeb service = new LibrayServiceWeb();
         PrintWriter out = resp.getWriter();
         if(!service.emailExists(student.getEmail())){
             service.addNewStudent(student);

@@ -62,15 +62,15 @@
     <label style="margin-top: 15px; font-size:20px" >Register</label>
     <div class="box">
                      <label style="margin-right :90px; margin-top:10px;"> Full Name</label>
-                     <input class="field" type="text" name="userName" placeholder="Enter your name">
+                     <input class="field" type="text" name="userName" placeholder="Enter your name" required>
     </div>
     <div class="box">
                      <label style="margin-right :90px; margin-top:10px;"> Email</label>
-                     <input class="field" type="email" name = "userEmail"  placeholder="Enter your email">
+                     <input class="field" type="email" name = "userEmail"  placeholder="Enter your email" required>
     </div>
     <div class="box">
                     <label style="margin-right :90px; margin-top:10px;"> Phone Number</label>
-                    <input class="field" type=number  length=10  name="userPhone" placeholder="Enter your phone number">
+                    <input class="field" type=number  length=10  name="userPhone" placeholder="Enter your phone number" required>
     </div>
 
     <button  class="btn" type="submit" style = "margin-top:20px;" id="register" name="register">Register</button>

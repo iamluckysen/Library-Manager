@@ -28,16 +28,16 @@
         box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.3);
         }
         label {
-  display: block; /* Forces the label to sit on its own line */
+  display: block;
   color: white;
-  margin-bottom: 8px; /* Adds space between the label and the input */
+  margin-bottom: 8px;
   font-family: sans-serif;
   font-weight: bold;
 }
         input:focus {
-  outline: none; /* Removes the ugly default browser outline */
-  border-color: #00ffff; /* Changes border to cyan */
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); /* Adds a subtle glow */
+  outline: none;
+  border-color: #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
 }
         .btn{
             background-color:white;
@@ -52,7 +52,7 @@
             padding: 7px 10px;
         }
         .btn:active {
-  transform: scale(0.95); /* Slight shrink effect when clicked */
+  transform: scale(0.95);
 }
 
     </style>
@@ -65,7 +65,7 @@
     <form action="loginServlet" method="post">
     <div class="box">
         <label style="margin-right :90px; margin-top:50px;">Student ID</label>
-        <input class="field" type="number" name="stdId" placeholder="Enter your student ID">
+        <input class="field" type="number" name="stdId" placeholder="Enter your student ID" required>
     </div>
     <button type="submit" class="btn" style = "margin-top:20px;" >Login</button>
       </form>

@@ -1,4 +1,4 @@
-<%@ page import="javax.servlet.http.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%                      Integer id = null;
                         String name = null;
                         String email = null;
@@ -59,12 +59,12 @@
 
 <div class="bg-card">
     <label style="margin-top: 15px; font-size:30px" >Welcome <%= name %> !</label>
-    <div> <button  class="btn" style="margin-top:80px"  name="A">See All Book List</button></div>
-    <div> <button  class="btn"   name="M"> See My Book List </button></div>
-    <div><button  class="btn"   name="S">Search Book By ID</button></div>
-    <div><button  class="btn"   name="B">Borrow a new Book</button></div>
-    <div><button  class="btn"   name="R">Return Book</button></div>
-   <div> <button  class="btn"    name="O">Logout</button></div>
+    <div> <button  class="btn" style="margin-top:80px"  onclick="window.location.href='bookList'" name="A">See All Book List</button></div>
+    <div> <button  class="btn"  onclick="window.location.href='myBookList'"   name="M" > See My Book List </button></div>
+    <div><button  class="btn"   name="S" onclick="window.location.href='searchbook.jsp'" >Search Book By ID</button></div>
+    <div><button  class="btn"   name="B" onclick="window.location.href='borrowBook.jsp'">Borrow a new Book</button></div>
+    <div><button  class="btn"   name="R" onclick="window.location.href='returnBook.jsp'">Return Book</button></div>
+   <div> <button  class="btn"   onclick="window.location.href='logout'"  name="O">Logout</button></div>
 </div>
 
 </body>

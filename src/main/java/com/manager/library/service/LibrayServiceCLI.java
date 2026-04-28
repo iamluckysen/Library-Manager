@@ -11,7 +11,7 @@ import com.manager.library.entities.Student;
 
 import java.util.List;
 
-public class LibraryService {
+public class LibrayServiceCLI {
     private BookDao bookDao = new BookDao();
     private StudentDao studentDao = new StudentDao();
     private IssuedBookDao issuedBookDao = new IssuedBookDao();
@@ -20,22 +20,25 @@ public class LibraryService {
 
     //GET BOOKS
     public void getBooklist(){
-      List<Book> bookList = bookDao.getBookList();
+        List<Book> bookList = bookDao.getBookList();
         System.out.println("###############BOOKS################");
-      for(Book book : bookList){
-          int available = book.getTotalQuantity()- book.getSoldQuantity();
-          System.out.println("book_id : "+book.getId()+"\n"+"book_name : "+book.getName()+"\n"+"bookAuthor : "+book.getAuthor()+"\n"+"bookCategory : " + book.getCategory() + "\n"+ "AvailableQuantity : "+available + "\n" + "SoldQuantity : "+book.getSoldQuantity());
-          System.out.println("-------------------------------------");
-      }
+        for(Book book : bookList){
+            int available = book.getTotalQuantity()- book.getSoldQuantity();
+            System.out.println("book_id : "+book.getId()+"\n"+"book_name : "+book.getName()+"\n"+"bookAuthor : "+book.getAuthor()+"\n"+"bookCategory : " + book.getCategory() + "\n"+ "AvailableQuantity : "+available + "\n" + "SoldQuantity : "+book.getSoldQuantity());
+            System.out.println("-------------------------------------");
+        }
         System.out.println("####################################");
     }
+    public List<Book> getbooklist(){
+        return  bookDao.getBookList();
+    }
     public void getBookById(int bookId){
-       Book book =  bookDao.getBookById(bookId);
-       if(book!=null){
-           int available = book.getTotalQuantity()- book.getSoldQuantity();
-           System.out.println("book_id : "+book.getId()+"\n"+"book_name : "+book.getName()+"\n"+"bookAuthor : "+book.getAuthor()+"\n"+"bookCategory : " + book.getCategory() + "\n"+ "AvailableQuantity : "+available);
-       }
-       else System.out.println("book not found !");
+        Book book =  bookDao.getBookById(bookId);
+        if(book!=null){
+            int available = book.getTotalQuantity()- book.getSoldQuantity();
+            System.out.println("book_id : "+book.getId()+"\n"+"book_name : "+book.getName()+"\n"+"bookAuthor : "+book.getAuthor()+"\n"+"bookCategory : " + book.getCategory() + "\n"+ "AvailableQuantity : "+available);
+        }
+        else System.out.println("book not found !");
     }
 
     //GET STUDENTS
@@ -98,6 +101,8 @@ public class LibraryService {
         }
     }
 
+
+
     //CREATE BOOK
     public void addNewBook(Book book){
         if(book!=null){
@@ -112,7 +117,7 @@ public class LibraryService {
     public void addNewStudent(Student student){
         if(student==null){
             System.out.println("student details cannot be null !");
-        return;
+            return;
         }
         studentDao.saveStudent(student);
     }
@@ -155,10 +160,10 @@ public class LibraryService {
         //update student
         student.setObtainedBook(student.getObtainedBook()+1);
 
-            //borrow book
+        //borrow book
         issuedBookDao.borrowBook(book,student);
 
-        }
+    }
 
     //RETURN BOOK
     public void returnBook(int bookId, int studentId){

@@ -1,15 +1,13 @@
 package com.manager.library.frontendCLI;
 
 import com.manager.library.entities.Student;
-import com.manager.library.service.LibraryService;
-
-import java.io.IOException;
+import com.manager.library.service.LibrayServiceCLI;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class UserInterface {
-        public static void home(Scanner input,LibraryService libraryService) {
+        public static void home(Scanner input, LibrayServiceCLI libraryService) {
             boolean exit = false;
             System.out.println("=====================================");
             System.out.println("  Welcome to the Library Manager!    ");
@@ -38,7 +36,7 @@ public class UserInterface {
                 }
             }
         }
-        public static void studentLogin(Scanner input,LibraryService libraryService) {
+        public static void studentLogin(Scanner input,LibrayServiceCLI libraryService) {
             System.out.println("Logging in as Student");
             String prompt = "Enter Student ID : ";
             int stdID = getSafeInteger(input,prompt);
@@ -91,7 +89,7 @@ public class UserInterface {
                   }
               }
         }
-        public static void studentRegistration(Scanner input,LibraryService libraryService) {
+        public static void studentRegistration(Scanner input, LibrayServiceCLI libraryService) {
         System.out.println("******REGISTERING A STUDENT*********");
         String name = getSafeString(input, "Enter Your Full Name : ");
         String email = getUniqueEmail(input, libraryService,"Enter Email Address : ");
@@ -141,7 +139,7 @@ public class UserInterface {
             }
             return value;
         }
-        public static String getUniqueEmail(Scanner input,LibraryService service,String message){
+        public static String getUniqueEmail(Scanner input,LibrayServiceCLI service, String message){
             while(true){
                 String email = getSafeString(input, message);
                 if(service.emailExists(email)){

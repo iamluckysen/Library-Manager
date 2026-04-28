@@ -17,8 +17,39 @@ public class MyBooks {
     @Column(name = "issued_id")
     private int issuedId;
 
+    public LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public String getBookAuthor() {
+        return bookAuthor;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public int getBookID(){
+        return bookID;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public int getIssuedId() {
+        return issuedId;
+    }
+
     @Column(name = "student_id")
     private int studentId;
+
+    @Column(name = "book_id")
+    private int bookID;
 
     @Column(name = "student_name")
     private String studentName;
